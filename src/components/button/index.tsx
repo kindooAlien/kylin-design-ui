@@ -29,6 +29,12 @@ export default defineComponent({
     nativeType: { type: String as PropType<ButtonNativeType>, default: 'button' },
     /** Icon 图标（iconfont 名称），通过 <KIcon> 渲染在文字之前。 */
     icon: { type: String, default: undefined },
+    /** 传入后渲染为 `<a>` 链接元素而非 `<button>`（href 原样透传）。 */
+    href: { type: String, default: undefined },
+    /** 链接按钮的 target（仅 href 存在时生效），如 _blank。 */
+    target: { type: String, default: undefined },
+    /** 链接按钮的 rel；缺省时 target=_blank 自动补 noopener noreferrer。 */
+    rel: { type: String, default: undefined },
   },
   emits: ['click'],
   setup(props, { slots, emit }) {
@@ -74,25 +80,54 @@ export default defineComponent({
       }
     })
 
-    return () => (
-      <button
-        class={classes.value}
-        type={props.nativeType}
-        disabled={isInteractiveDisabled.value}
-        aria-disabled={isInteractiveDisabled.value}
-        aria-busy={props.loading}
-        style={squareStyle.value}
-        onClick={(e) => !isInteractiveDisabled.value && emit('click', e)}
-      >
-        {props.loading && <span class={e('loading')} />}
-        {slots.icon ? slots.icon() : props.icon ? <KIcon name={props.icon} /> : undefined}
-        {/* 无有效默认内容时不渲染文字 span：否则基础样式的 gap:8px 会在纯图标按钮
-            的图标右侧凭空多出 8px 间距，导致图标无法正对居中。
-            hasMeaningfulText 同时拦截「未传插槽」与「插槽只有空白/注释节点」两种形态。 */}
-        {!props.circle && hasMeaningfulText.value && (
-          <span class={e('text')}>{slots.default?.()}</span>
-        )}
-      </button>
-    )
+    // 链接模式：传入 href 时渲染为 <a>，保留完整链接语义（中键/右键新开、复制地址、SEO）。
+    // 禁用/加载中的链接按钮不可点击：aria-disabled 标记 + 阻止默认导航。
+    const isLink = computed(() => !!props.href)
+    const anchorRel = computed(() => {
+      if (props.rel) return props.rel
+      return props.target === '_blank' ? 'noopener noreferrer' : undefined
+    })
+
+    function handleAnchorClick(e: MouseEvent) {
+      if (isInteractiveDisabled.value) {
+        e.preventDefault()
+        return
+      }
+      emit('click', e)
+    }
+
+    return () => {
+      const Tag = (isLink.value ? 'a' : 'button') as 'a' | 'button'
+      return (
+        <Tag
+          class={classes.value}
+          style={squareStyle.value}
+          {...(isLink.value
+            ? {
+                href: props.href,
+                target: props.target,
+                rel: anchorRel.value,
+                'aria-disabled': isInteractiveDisabled.value || undefined,
+                onClick: handleAnchorClick,
+              }
+            : {
+                type: props.nativeType,
+                disabled: isInteractiveDisabled.value,
+                'aria-disabled': isInteractiveDisabled.value,
+                'aria-busy': props.loading,
+                onClick: (e: MouseEvent) => !isInteractiveDisabled.value && emit('click', e),
+              })}
+        >
+          {props.loading && <span class={e('loading')} />}
+          {slots.icon ? slots.icon() : props.icon ? <KIcon name={props.icon} /> : undefined}
+          {/* 无有效默认内容时不渲染文字 span：否则基础样式的 gap:8px 会在纯图标按钮
+              的图标右侧凭空多出 8px 间距，导致图标无法正对居中。
+              hasMeaningfulText 同时拦截「未传插槽」与「插槽只有空白/注释节点」两种形态。 */}
+          {!props.circle && hasMeaningfulText.value && (
+            <span class={e('text')}>{slots.default?.()}</span>
+          )}
+        </Tag>
+      )
+    }
   },
 })

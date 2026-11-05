@@ -73,3 +73,46 @@ describe('KButton 方形按钮（square）', () => {
     expect(onClick).toHaveBeenCalledTimes(1) // 未被再次调用
   })
 })
+
+describe('KButton 链接模式（href）', () => {
+  it('传入 href 时渲染为 <a> 而非 <button>，href 原样透传', () => {
+    const wrapper = mount(KButton, { props: { href: '#products' } })
+    expect(wrapper.find('a').exists()).toBe(true)
+    expect(wrapper.find('button').exists()).toBe(false)
+    expect(wrapper.find('a').attributes('href')).toBe('#products')
+  })
+
+  it('target=_blank 且未传 rel 时自动补 noopener noreferrer', () => {
+    const wrapper = mount(KButton, { props: { href: 'https://github.com', target: '_blank' } })
+    expect(wrapper.find('a').attributes('rel')).toBe('noopener noreferrer')
+  })
+
+  it('显式 rel 优先于自动补全', () => {
+    const wrapper = mount(KButton, {
+      props: { href: 'https://github.com', target: '_blank', rel: 'noopener' },
+    })
+    expect(wrapper.find('a').attributes('rel')).toBe('noopener')
+  })
+
+  it('链接按钮 disabled 时不可导航且带 aria-disabled', async () => {
+    const wrapper = mount(KButton, { props: { href: 'https://github.com', disabled: true } })
+    const a = wrapper.find('a')
+    expect(a.attributes('aria-disabled')).toBe('true')
+    await a.trigger('click')
+    // preventDefault 后不会发生导航；这里只断言 click 事件仍冒泡给监听者与否
+    expect(wrapper.emitted('click')).toBeUndefined()
+  })
+
+  it('链接按钮点击仍触发 click 事件', async () => {
+    const wrapper = mount(KButton, { props: { href: '#top' } })
+    await wrapper.find('a').trigger('click')
+    expect(wrapper.emitted('click')).toHaveLength(1)
+  })
+
+  it('href 与 target 均未传时保持原生 button 行为', () => {
+    const wrapper = mount(KButton, { props: { nativeType: 'submit' } })
+    const btn = wrapper.find('button')
+    expect(btn.exists()).toBe(true)
+    expect(btn.attributes('type')).toBe('submit')
+  })
+})

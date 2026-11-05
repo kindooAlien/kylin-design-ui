@@ -34,6 +34,12 @@ export interface ButtonProps {
   loading?: boolean
   /** 深色禁用变体（灰色代替冲淡的 type 色）。 */
   dark?: boolean
+  /** 传入后渲染为 `<a>` 链接元素而非 `<button>`（href 原样透传）。 */
+  href?: string
+  /** 链接按钮的 target（仅 href 存在时生效），如 _blank。 */
+  target?: string
+  /** 链接按钮的 rel；缺省时 target=_blank 自动补 noopener noreferrer。 */
+  rel?: string
   /** `<button>` 元素的原生 type 属性（button / submit / reset）。 */
   nativeType?: ButtonNativeType
 }
