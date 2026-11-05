@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import pkg from '../../../package.json'
 import { useTheme } from '@/composables/useTheme'
 import KScrollBar from '@/components/scrollbar/index'
 import type { ScrollBarExposed } from '@/components/scrollbar/index'
@@ -33,6 +34,9 @@ const kscrollRef = ref<ScrollBarExposed | null>(null)
 
 /** GitHub 仓库地址（导航/页脚共用） */
 const REPO_URL = 'https://github.com/mylions5050/kylin-design-ui'
+
+/** 组件库版本（自动取自 package.json，避免文档站与 npm 包版本脱节） */
+const LIB_VERSION = pkg.version
 
 const scrollToSection = (id: string) => {
   const wrap = kscrollRef.value?.wrapRef
@@ -247,7 +251,7 @@ const statCounts = stats.map((s) => useCountUp(s.end))
         <div class="landing-hero__glow landing-hero__glow--b" />
         <div class="landing-hero__grid-bg" />
 
-        <div class="landing-hero__badge">✦ v0.1.0 · 全量安装 / 按需引入</div>
+        <div class="landing-hero__badge">✦ v{{ LIB_VERSION }} · 全量安装 / 按需引入</div>
         <h1 class="landing-hero__title">设计之美<span class="landing-hero__title-sub">企业级 Vue3 组件库</span></h1>
         <p class="landing-hero__desc">
           基于 Vue 3 + TypeScript 打造，50+ 高质量 K 前缀组件开箱即用。
