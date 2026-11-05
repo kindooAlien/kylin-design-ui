@@ -14,7 +14,7 @@ import "./index.scss";
 
 const [b, e, m] = createBem("k-result");
 
-export type KResultIcon = "success" | "warning" | "info" | "error";
+export type KResultIcon = "success" | "warning" | "info" | "error" | "primary";
 
 /** 语义状态 → iconfont 图标名（带填充的圆底图标） */
 const ICON_MAP: Record<KResultIcon, string> = {
@@ -22,13 +22,16 @@ const ICON_MAP: Record<KResultIcon, string> = {
   warning: "warning-filling",
   info: "prompt-filling",
   error: "error",
+  primary: "prompt-filling",
 };
 
 export default defineComponent({
   name: "KResult",
   props: {
-    /** 图标类型：success / warning / info / error，也可用 icon 插槽完全自定义 */
+    /** 图标类型：success / warning / info / error / primary，也可用 icon 插槽完全自定义 */
     icon: { type: String as PropType<KResultIcon>, default: "info" },
+    /** 自定义图标颜色（任意 CSS 颜色值），设置后覆盖 icon 语义色的默认取色 */
+    color: { type: String, default: undefined },
     /** 主标题 */
     title: { type: String, default: undefined },
     /** 副标题（灰色说明文字） */
@@ -38,13 +41,21 @@ export default defineComponent({
     // 当前状态语义，供图标颜色 class 使用
     const status = computed<KResultIcon>(() => props.icon);
 
-    // 图标区：icon 插槽 > 语义图标
+    // 图标区：icon 插槽 > 语义图标。color prop 以内联样式覆盖语义色，
+    // 供使用方在不满足预设五色时自定义（如品牌色、深色模式适配等）
+    const iconStyle = computed(() =>
+      props.color ? { color: props.color } : undefined,
+    );
     const renderIcon = () => {
       if (slots.icon) {
-        return <div class={e("icon")}>{slots.icon()}</div>;
+        return (
+          <div class={e("icon")} style={iconStyle.value}>
+            {slots.icon()}
+          </div>
+        );
       }
       return (
-        <div class={[e("icon"), m(status.value, true)]}>
+        <div class={[e("icon"), m(status.value, true)]} style={iconStyle.value}>
           <KIcon name={ICON_MAP[props.icon]} size={56} />
         </div>
       );

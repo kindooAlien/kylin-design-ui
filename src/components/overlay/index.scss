@@ -11,6 +11,13 @@
   overflow: hidden;
 }
 
+/* 内容层：display:contents 不产生盒子，子元素（如 Dialog wrapper）直接参与根节点的
+   flex 布局。此前该类漏写样式，普通 div 作为 flex item 尺寸随内容收缩，
+   导致 Dialog fullscreen 模式的 width/height:100% 相对它失效（全屏撑不开） */
+.k-overlay__content {
+  display: contents;
+}
+
 /* 遮罩背景只在 __mask 层：它是淡入淡出的目标，根节点不能垫底色，
    否则遮罩挂载瞬间就是全屏实色，fade 看不出来。
    z-index: -1 必须加：内容子元素（如 Dialog wrapper）多是 static 定位，

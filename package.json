@@ -1,7 +1,6 @@
 {
   "name": "kylin-design-ui",
-  "private": true,
-  "version": "0.1.0",
+  "version": "0.2.4",
   "type": "module",
   "description": "Kylin Design UI —— Vue3 + TypeScript 企业级组件库（K 前缀），支持全量安装与按需引入",
   "keywords": [

@@ -1,4 +1,4 @@
-import { defineComponent, type PropType, computed } from 'vue'
+import { defineComponent, type PropType, computed, Comment, type VNode } from 'vue'
 import { createBem } from '@/utils/create-bem'
 import KIcon from '@/components/icon/index'
 import { useButtonClasses } from './composables/useButtonClasses'
@@ -37,6 +37,25 @@ export default defineComponent({
     // Computed interactive state: effectively disabled when either disabled or loading.
     const isInteractiveDisabled = computed(() => props.disabled || props.loading)
 
+    // 判定默认插槽是否包含有效文本内容。
+    // 纯空白（模板换行/空格）或注释节点（v-if 为 false 的占位）不算有效内容：
+    // 否则「图标 + 仅空白的文字 span」之间仍会被基础样式的 gap:8px 撑出幽灵间距。
+    const hasMeaningfulText = computed<boolean>(() => {
+      const nodes = slots.default?.()
+      if (!nodes) return false
+      const check = (n: VNode | string | number | unknown): boolean => {
+        if (typeof n === 'string' || typeof n === 'number') return String(n).trim() !== ''
+        if (Array.isArray(n)) return n.some((c) => check(c))
+        if (n && typeof n === 'object' && 'type' in (n as VNode)) {
+          const vn = n as VNode
+          if (vn.type === Comment) return false
+          return true
+        }
+        return true
+      }
+      return nodes.some((n) => check(n))
+    })
+
     // 方形按钮尺寸：默认 20px，width/height 可单独设置（缺省保持正方形）
     const squareStyle = computed<Record<string, string> | undefined>(() => {
       if (!props.square) return undefined
@@ -67,7 +86,12 @@ export default defineComponent({
       >
         {props.loading && <span class={e('loading')} />}
         {slots.icon ? slots.icon() : props.icon ? <KIcon name={props.icon} /> : undefined}
-        {!props.circle && <span class={e('text')}>{slots.default?.()}</span>}
+        {/* 无有效默认内容时不渲染文字 span：否则基础样式的 gap:8px 会在纯图标按钮
+            的图标右侧凭空多出 8px 间距，导致图标无法正对居中。
+            hasMeaningfulText 同时拦截「未传插槽」与「插槽只有空白/注释节点」两种形态。 */}
+        {!props.circle && hasMeaningfulText.value && (
+          <span class={e('text')}>{slots.default?.()}</span>
+        )}
       </button>
     )
   },

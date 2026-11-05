@@ -317,8 +317,10 @@ export default defineComponent({
                     aria-label={isFullscreen.value ? "Exit fullscreen" : "Fullscreen"}
                     onClick={toggleFullscreen}
                   >
+                    {/* 图标名须与 iconfont 注册表一致（fullscreen-shrink/expand），
+                        此前误写 fullscreen/fullscreen-exit 导致图标空白 */}
                     <KIcon
-                      name={isFullscreen.value ? "fullscreen-exit" : "fullscreen"}
+                      name={isFullscreen.value ? "fullscreen-shrink" : "fullscreen-expand"}
                       size={14}
                     />
                   </button>

@@ -9,9 +9,12 @@
 
   &__icon {
     line-height: 1;
-    /* 四种语义状态色（iconfont 图标用 currentColor） */
+    /* 五种语义状态色（iconfont 图标用 currentColor） */
     color: var(--k-color-info);
 
+    &.is-primary {
+      color: var(--k-color-primary);
+    }
     &.is-success {
       color: var(--k-color-success);
     }

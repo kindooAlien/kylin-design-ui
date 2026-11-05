@@ -21,6 +21,10 @@
  * `kylin-design-ui/dist/index.css` 即可；按需引入时样式由构建工具按导入链自动收集
  * （工程基于 sass 源码分发，无需额外插件）。
  */
+// Design tokens（--k-* CSS 变量）必须最先进入样式产物：组件样式全部消费这些
+// 变量，缺失时按钮/输入框等会退化成无背景无圆角的裸样式（npm 包消费者的
+// 项目里不会像演示站那样单独引入 tokens.scss，所以必须在入口随样式打包）。
+import '@/assets/styles/tokens.scss'
 import { withInstall } from '@/utils/install'
 
 /* 基础组件 */
@@ -52,6 +56,7 @@ import KStepsRaw from './steps/index'
 import KInputRaw from './input/index'
 import KSelectRaw from './select/index'
 import KRadioRaw from './radio/index'
+import KRadioGroupRaw from './radio/group'
 import KCheckboxRaw from './checkbox/index'
 import KInputNumberRaw from './input-number/index'
 import KUploadRaw from './upload/index'
@@ -60,7 +65,8 @@ import { KFormItem as KFormItemRaw } from './form/index'
 import KCascaderRaw from './cascader/index'
 import KTransferRaw from './transfer/index'
 import KTreeSelectRaw from './tree-select/index'
-import KDatePickerRaw from './date-picker/index'
+import KDatePickerRaw from './date-picker/date-picker'
+import KDatePickerPaneRaw from './date-picker/index'
 import KTimePickerRaw from './time-picker/index'
 import KTimeSelectRaw from './time-select/index'
 import KDateTimePickerRaw from './date-time-picker/index'
@@ -100,6 +106,11 @@ export { withInstall, withInstallDirective } from '@/utils/install'
 export { notice } from './notice/useNotice'
 export { vLoading } from './loading/directive'
 
+/* 命令式 API（对标 Element Plus 的 ElMessage / ElMessageBox） */
+export { message } from './message/useMessage'
+export { messageBox } from './message-box/useMessageBox'
+export type { MessageOptions } from './message/useMessage'
+
 export const KAlert = withInstall(KAlertRaw)
 export const KAvatar = withInstall(KAvatarRaw, 'KAvatar')
 export const AvatarGroup = withInstall(AvatarGroupRaw, 'KAvatarGroup')
@@ -129,6 +140,7 @@ export const KSteps = withInstall(KStepsRaw)
 export const KInput = withInstall(KInputRaw)
 export const KSelect = withInstall(KSelectRaw)
 export const KRadio = withInstall(KRadioRaw)
+export const KRadioGroup = withInstall(KRadioGroupRaw)
 export const KCheckbox = withInstall(KCheckboxRaw)
 export const KInputNumber = withInstall(KInputNumberRaw)
 export const KUpload = withInstall(KUploadRaw)
@@ -138,6 +150,7 @@ export const KCascader = withInstall(KCascaderRaw)
 export const KTransfer = withInstall(KTransferRaw)
 export const KTreeSelect = withInstall(KTreeSelectRaw)
 export const KDatePicker = withInstall(KDatePickerRaw)
+export const KDatePickerPane = withInstall(KDatePickerPaneRaw)
 export const KTimePicker = withInstall(KTimePickerRaw)
 export const KTimeSelect = withInstall(KTimeSelectRaw)
 export const KDateTimePicker = withInstall(KDateTimePickerRaw)
@@ -188,7 +201,7 @@ const KylinUI = {
       KInfoPopover, KTag, KPagination,
       KContainer, KHeader, KAside, KMain, KFooter,
       KMenu, KDropdown, KTab, KPageHeader, KSteps,
-      KInput, KSelect, KRadio, KCheckbox, KInputNumber, KUpload,
+      KInput, KSelect, KRadio, KRadioGroup, KCheckbox, KInputNumber, KUpload,
       KForm, KFormItem, KCascader, KTransfer, KTreeSelect,
       KDatePicker, KTimePicker, KTimeSelect, KDateTimePicker,
       KRate, KSlider, KSwitch,

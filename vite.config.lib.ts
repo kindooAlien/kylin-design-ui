@@ -33,6 +33,12 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  define: {
+    // 依赖（如 vue-router）源码中的 process.env.NODE_ENV 若保留到产物，
+    // UMD 直开浏览器会因无 process 对象而在工厂函数执行中途抛错、
+    // 导出全部丢失（仅剩 __esModule）。构建期直接替换为字面量。
+    'process.env.NODE_ENV': JSON.stringify('production'),
+  },
   build: {
     outDir: 'dist',
     emptyOutDir: true,

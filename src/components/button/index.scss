@@ -365,6 +365,21 @@
     }
   }
 
+// 文字容器：flex 化让默认插槽里的图标（SVG 基线在底边，inline 排版下按基线对齐
+// 会比文字中心偏高约 2px）与文字严格垂直居中。
+// gap 补 8px：flex 会吞掉图标与文字间的空白文本节点（inline 时代靠它撑出间距），
+// 取值与 .k-btn 基础 gap 一致，默认插槽图标与 #icon 插槽两种写法视觉统一
+&__text {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+}
+
+// 兜底：编程式渲染的默认插槽若产出空 span，不参与 flex 布局（gap 不会为它撑出间距）
+&__text:empty {
+display: none;
+}
+
   &__loading {
     width: 12px;
     height: 12px;

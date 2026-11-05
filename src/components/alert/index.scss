@@ -32,24 +32,26 @@ $types: (
   border-radius: 16px;
   box-sizing: border-box;
 
+  /* 尺寸阶梯对齐 Element Plus（默认档 8px 16px / 32）。
+     注意：默认档视觉与 0.1.x 相比收窄，属破坏性调整，自 0.2.0 起 */
   &--mini {
+    padding: 4px 8px;
+    min-height: 24px;
+  }
+
+  &--small {
+    padding: 6px 12px;
+    min-height: 28px;
+  }
+
+  &--medium {
     padding: 8px 16px;
     min-height: 32px;
   }
 
-  &--small {
-    padding: 10px 24px 10px 16px;
-    min-height: 38px;
-  }
-
-  &--medium {
-    padding: 12px 32px 12px 24px;
-    min-height: 44px;
-  }
-
   &--large {
-    padding: 15px 32px 15px 24px;
-    min-height: 52px;
+    padding: 12px 24px 12px 16px;
+    min-height: 44px;
   }
 
   // type 配色：彩色背景 + 文字色随 type（核心变化，原统一 #3C4B62）
