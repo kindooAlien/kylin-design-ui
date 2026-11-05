@@ -23,8 +23,9 @@ export default defineConfig({
       // 根 tsconfig 是 solution 风格（files 为空），必须显式指向包含源码的子配置
       tsconfigPath: 'tsconfig.app.json',
       entryRoot: 'src',
-      // 只为组件库源码生成声明，排除演示站页面
+      // 只为组件库源码生成声明，排除演示站页面与测试文件
       include: ['src/components/**/*', 'src/utils/**/*'],
+      exclude: ['src/components/**/__tests__/**', 'src/**/*.spec.ts', 'src/**/*.test.ts'],
       outDir: 'dist',
     }),
   ],
