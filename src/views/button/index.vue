@@ -5,6 +5,7 @@ import KButtonGroup from '@/components/button-group/index'
 import APITable from '@/components/api-table/index.vue'
 import { apiProps, apiEmits, apiSlots } from './api-data'
 import SquareButtonDemo from './demos/square-button.vue'
+import HrefButtonsDemo from './demos/href-buttons.vue'
 
 // 用 ?raw 导入各用例源码片段，作为 DemoBlock 的 code 展示
 import defaultButtonCode from './demos/default-button.vue?raw'
@@ -19,6 +20,7 @@ import disabledLoadingCode from './demos/disabled-loading.vue?raw'
 import iconButtonsCode from './demos/icon-buttons.vue?raw'
 import textButtonsCode from './demos/text-buttons.vue?raw'
 import linkButtonsCode from './demos/link-buttons.vue?raw'
+import hrefButtonsCode from './demos/href-buttons.vue?raw'
 import buttonGroupCode from './demos/button-group.vue?raw'
 import squareButtonCode from './demos/square-button.vue?raw'
 </script>
@@ -148,6 +150,14 @@ import squareButtonCode from './demos/square-button.vue?raw'
       <KButton type="success" link>Success</KButton>
       <KButton type="warning" link>Warning</KButton>
       <KButton type="error" link>Error</KButton>
+    </DemoBlock>
+
+    <DemoBlock
+      title="跳转链接（href）"
+      description="传入 href 渲染为 <a> 锚元素；target=_blank 自动补 noopener noreferrer；disabled 阻止跳转。可与 link/text/plain 等样式组合。"
+      :code="hrefButtonsCode"
+    >
+      <HrefButtonsDemo />
     </DemoBlock>
 
     <DemoBlock title="按钮组" description="ButtonGroup 组合多个按钮，相邻边框合并、首尾圆角。" :code="buttonGroupCode">

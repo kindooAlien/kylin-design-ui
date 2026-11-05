@@ -20,6 +20,9 @@ export const apiProps: ApiPropRow[] = [
   { name: 'dark', type: "Boolean", default: "false", required: false, desc: "深色禁用变体（灰色代替冲淡的 type 色）。" },
   { name: 'nativeType', type: "'button' | 'submit' | 'reset'", default: "'button'", required: false, desc: "`<button>` 元素的原生 type 属性（button / submit / reset）。" },
   { name: 'icon', type: "String", default: "undefined", required: false, desc: "Icon 图标（iconfont 名称），通过 <KIcon> 渲染在文字之前。" },
+  { name: 'href', type: "String", default: "undefined", required: false, desc: "跳转链接：传入后渲染为 <a> 锚元素而非 <button>，可与 link/text/plain 等样式组合。" },
+  { name: 'target', type: "String", default: "undefined", required: false, desc: "仅 href 模式生效，透传 <a> 的 target（如 _blank）。为 _blank 且未显式设置 rel 时自动补 noopener noreferrer。" },
+  { name: 'rel', type: "String", default: "undefined（自动推断）", required: false, desc: "仅 href 模式生效，透传 <a> 的 rel；显式设置时覆盖自动推断值。" },
 ]
 
 export const apiEmits: ApiEventRow[] = [
