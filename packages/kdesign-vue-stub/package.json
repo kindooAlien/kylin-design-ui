@@ -1,0 +1,7 @@
+{
+  "name": "kdesign-vue",
+  "version": "0.0.1",
+  "description": "Placeholder: KDesign Vue component library has moved to @kindoo/kdesign",
+  "keywords": ["kdesign", "kdesign-ui", "vue", "components", "kindoo"],
+  "license": "MIT"
+}
