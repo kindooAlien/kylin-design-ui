@@ -61,10 +61,9 @@
     transform: translateY(-50%) rotate(180deg);
   }
 
-  // 下拉面板：内嵌树
+  // 下拉面板：内嵌树（滚动交给 KScroll）
   &__panel {
     padding: 8px;
-    overflow: auto;
     background-color: var(--k-color-bg);
     border: 1px solid var(--k-color-border-light);
     border-radius: var(--k-border-radius);

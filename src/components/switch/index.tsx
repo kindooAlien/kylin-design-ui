@@ -26,11 +26,11 @@ export default defineComponent({
     },
     activeColor: {
       type: String,
-      default: '#0D9CE7',
+      default: 'var(--k-color-primary)',
     },
     inactiveColor: {
       type: String,
-      default: '#C4D2E6',
+      default: 'var(--k-color-border)',
     },
     showLabel: {
       type: Boolean,

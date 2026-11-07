@@ -50,6 +50,7 @@
 
 .k-checkbox.is-disabled.is-checked .k-checkbox__box,
 .k-checkbox.is-disabled.is-indeterminate .k-checkbox__box {
-  background: var(--k-color-default-disabled);
-  border-color: var(--k-color-default-disabled);
+  /* 选中态被禁用：用 primary-disabled 与 KButton 保持一致的深浅 */
+  background: var(--k-color-primary-disabled);
+  border-color: var(--k-color-primary-disabled);
 }

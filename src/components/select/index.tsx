@@ -324,7 +324,7 @@ export default defineComponent({
 
     const lastToggleTime = ref(0);
 
-    const toggleVisible = (e?: MouseEvent) => {
+    const toggleVisible = () => {
       if (props.disabled || props.readonly) return;
       const now = Date.now();
       if (lastToggleTime.value && now - lastToggleTime.value < 150) return;
@@ -558,7 +558,7 @@ export default defineComponent({
       }
 
       return [
-        ungrouped.map((option, idx) => {
+        ungrouped.map((option) => {
           const globalIdx = flatOptions.value.indexOf(option);
           return (
           <KTooltip
@@ -703,7 +703,7 @@ export default defineComponent({
             e.stopPropagation();
             return;
           }
-          toggleVisible(e);
+          toggleVisible();
           e.stopPropagation();
         }}
         onKeydown={(e: KeyboardEvent) => {

@@ -2,6 +2,7 @@ import { defineComponent, ref, computed, watch, onMounted, nextTick, provide, in
 import { createBem } from '@/utils/create-bem'
 import KIcon from '@/components/icon/index'
 import KTooltip from '@/components/tooltip/index'
+import KScroll from '@/components/scrollbar/index'
 import './index.scss'
 
 const [b, e, m, v] = createBem('k-avatar')
@@ -264,14 +265,16 @@ const AvatarGroup = defineComponent({
               {{
                 content: () => (
                   <div class={e('group-overflow')}>
-                    {overflow.map((n, i) => (
-                      <div key={i} class={e('group-overflow-item')}>
-                        {n}
-                        {overflowNames[i] ? (
-                          <span class={e('group-overflow-name')}>{overflowNames[i]}</span>
-                        ) : null}
-                      </div>
-                    ))}
+                    <KScroll max-height="240px">
+                      {overflow.map((n, i) => (
+                        <div key={i} class={e('group-overflow-item')}>
+                          {n}
+                          {overflowNames[i] ? (
+                            <span class={e('group-overflow-name')}>{overflowNames[i]}</span>
+                          ) : null}
+                        </div>
+                      ))}
+                    </KScroll>
                   </div>
                 ),
                 default: () => (

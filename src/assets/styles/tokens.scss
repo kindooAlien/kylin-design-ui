@@ -79,6 +79,8 @@
   --k-color-default-disabled: #bbcbe4;
   --k-color-bg-disabled: #f5f7fa;
   --k-color-border-disabled: #d3ddec;
+  // primary 按钮 disabled 专用：比 primary-light 深一档，保持可辨识度
+  --k-color-primary-disabled: #a0cfff;
 
   // radius
   --k-border-radius-sm: 4px;
@@ -204,6 +206,8 @@
   --k-color-default-disabled: #4a5568;
   --k-color-bg-disabled: #21252b;
   --k-color-border-disabled: #374151;
+  // primary 按钮 disabled 专用（暗色）：半透明 primary，避免过亮/过暗
+  --k-color-primary-disabled: rgba(60, 137, 232, 0.45);
 
   --k-color-mask: rgba(0, 0, 0, 0.8);
 

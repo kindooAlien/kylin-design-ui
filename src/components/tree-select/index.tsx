@@ -3,6 +3,7 @@ import { createBem } from '@/utils/create-bem'
 import KInput from '@/components/input/index'
 import KIcon from '@/components/icon/index'
 import KPopper from '@/components/popper/index'
+import KScroll from '@/components/scrollbar/index'
 import KTree from '@/components/tree/index'
 import type { TreeNodeData } from '@/components/tree/types'
 import './index.scss'
@@ -131,21 +132,21 @@ export default defineComponent({
           width={panelWidth.value}
           transition="slide-fade"
         >
-          <div
-            class={e('panel')}
-            style={{
-              maxHeight:
+          <div class={e('panel')}>
+            <KScroll
+              max-height={
                 typeof props.maxHeight === 'number'
                   ? `${props.maxHeight}px`
-                  : props.maxHeight,
-            }}
-          >
-            <KTree
-              data={props.data}
-              default-expand-all={props.defaultExpandAll}
-              modelValue={props.modelValue}
-              onSelect={handleSelect}
-            />
+                  : props.maxHeight
+              }
+            >
+              <KTree
+                data={props.data}
+                default-expand-all={props.defaultExpandAll}
+                modelValue={props.modelValue}
+                onSelect={handleSelect}
+              />
+            </KScroll>
           </div>
         </KPopper>
       </div>

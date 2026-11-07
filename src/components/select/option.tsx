@@ -1,5 +1,5 @@
 import { defineComponent, inject, onUnmounted, watchEffect, type PropType } from 'vue'
-import type { SelectOption, SelectEffect } from './types'
+import type { SelectOption } from './types'
 import { SELECT_CTX } from './types'
 import { GROUP_CTX } from './option-group'
 

@@ -46,7 +46,7 @@ export default defineComponent({
     /** 定位方向 */
     placement: { type: String as PropType<PopperPlacement>, default: "bottom" },
     /** 触发元素（用于定位）。支持传入 HTMLElement、null 或 Ref<HTMLElement | null> */
-    triggerRef: { type: Object as PropType<HTMLElement | null | Ref<HTMLElement | null>>, default: null },
+    triggerRef: { type: Object as PropType<HTMLElement | null | undefined | Ref<HTMLElement | null | undefined>>, default: null },
     /** 触发元素的 DOMRect（用于 manual 模式，优先级高于 triggerRef） */
     anchorRect: { type: Object as PropType<DOMRect | null>, default: null },
     /** 是否 Teleport 到 body */
@@ -388,7 +388,7 @@ export default defineComponent({
         return (
           <Teleport to="body" disabled={!props.teleported}>
             <Transition name={transName} appear
-              onEnter={(el) => {
+              onEnter={() => {
                 nextTick(() => {
                   if (observer && panelRef.value) {
                     observer.observe(panelRef.value, {

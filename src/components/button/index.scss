@@ -61,8 +61,8 @@
   }
   &.k-btn--primary.is-disabled,
   &.k-btn--primary:disabled {
-    background: var(--k-color-primary-light);
-    border-color: var(--k-color-primary-light);
+    background: var(--k-color-primary-disabled);
+    border-color: var(--k-color-primary-disabled);
     color: var(--k-color-bg);
   }
   &.k-btn--success.is-disabled,

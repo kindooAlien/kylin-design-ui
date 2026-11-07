@@ -13,7 +13,7 @@ import type { KOverlayMaskType } from "@/components/overlay/index";
 import KScroll from "@/components/scrollbar/index";
 import "./index.scss";
 
-const [b, e, m, v] = createBem("k-dialog");
+const [, e, m, v] = createBem("k-dialog");
 
 export type DialogSize = "small" | "default" | "large";
 export type DialogAlign = "top" | "center";

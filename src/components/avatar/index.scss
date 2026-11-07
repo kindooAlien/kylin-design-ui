@@ -52,13 +52,11 @@
     cursor: pointer;
   }
 
-  /* Group 溢出气泡内容 */
+  /* Group 溢出气泡内容（滚动交给 KScroll） */
   &__group-overflow {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    max-height: 240px;
-    overflow: auto;
     padding: 4px;
   }
 
