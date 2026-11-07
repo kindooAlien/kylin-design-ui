@@ -10,7 +10,7 @@ export type WithInstall<T> = T & Plugin
  * withInstall — 为组件附加 install 方法，使其支持两种使用方式：
  *
  *  1. 按需引入（推荐，利于 tree-shaking）：
- *     `import { KButton } from 'kylin-design-ui'` 后在页面内直接使用；
+ *     `import { KButton } from '@kindoo/kdesign'` 后在页面内直接使用；
  *  2. 全局注册：
  *     `app.use(KButton)` 或统一入口 `app.use(KylinUI)` 全量注册。
  *

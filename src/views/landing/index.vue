@@ -33,7 +33,7 @@ const navLinks = [
 const kscrollRef = ref<ScrollBarExposed | null>(null)
 
 /** GitHub 仓库地址（导航/页脚共用） */
-const REPO_URL = 'https://github.com/mylions5050/kylin-design-ui'
+const REPO_URL = 'https://github.com/mylions5050/@kindoo/kdesign'
 
 /** 组件库版本（自动取自 package.json，避免文档站与 npm 包版本脱节） */
 const LIB_VERSION = pkg.version
@@ -425,7 +425,7 @@ const statCounts = stats.map((s) => useCountUp(s.end))
       <section id="cta" class="landing-cta" v-reveal>
         <div class="landing-cta__glow" />
         <h2>三分钟接入你的项目</h2>
-        <p>npm install kylin-design-ui —— 让 KDesignUI 为你的中后台提效</p>
+        <p>npm install @kindoo/kdesign —— 让 KDesignUI 为你的中后台提效</p>
         <div class="landing-cta__actions">
           <RouterLink to="/guide" class="landing-btn landing-btn--primary">查看安装指南</RouterLink>
           <RouterLink to="/components" class="landing-btn landing-btn--ghost">浏览组件</RouterLink>

@@ -23,18 +23,18 @@ const highlight = (code: string, lang: string): string => {
 
 /** 各章节示例代码（静态展示，非 ?raw 运行 demo） */
 const codeInstall = `# npm
-npm install kylin-design-ui
+npm install @kindoo/kdesign
 
 # pnpm
-pnpm add kylin-design-ui
+pnpm add @kindoo/kdesign
 
 # yarn
-yarn add kylin-design-ui`
+yarn add @kindoo/kdesign`
 
 const codeFull = `// main.ts —— 全量引入
 import { createApp } from 'vue'
-import KylinUI from 'kylin-design-ui'
-import 'kylin-design-ui/dist/index.css'
+import KylinUI from '@kindoo/kdesign'
+import '@kindoo/kdesign/dist/index.css'
 import App from './App.vue'
 
 createApp(App).use(KylinUI).mount('#app')
@@ -44,8 +44,8 @@ createApp(App).use(KylinUI).mount('#app')
 
 const codeTree = `// 按需引入：只打包用到的组件（sideEffects 已标注，支持 Tree-shaking）
 <script setup lang="ts">
-import { KButton, KSelect, notice } from 'kylin-design-ui'
-import 'kylin-design-ui/dist/index.css'
+import { KButton, KSelect, notice } from '@kindoo/kdesign'
+import '@kindoo/kdesign/dist/index.css'
 <\/script>
 
 <template>
@@ -54,7 +54,7 @@ import 'kylin-design-ui/dist/index.css'
 
 const codeSingle = `// 单组件全局注册：app.use(KXxx)
 import { createApp } from 'vue'
-import { KButton, KSwitch } from 'kylin-design-ui'
+import { KButton, KSwitch } from '@kindoo/kdesign'
 import App from './App.vue'
 
 const app = createApp(App)
@@ -66,7 +66,7 @@ app.mount('#app')`
 
 const codeLoading = `// v-loading 指令注册（指令以 Plugin 形式导出，同样用 app.use）
 import { createApp } from 'vue'
-import { vLoadingDirective } from 'kylin-design-ui'
+import { vLoadingDirective } from '@kindoo/kdesign'
 import App from './App.vue'
 
 createApp(App).use(vLoadingDirective).mount('#app')
@@ -76,7 +76,7 @@ createApp(App).use(vLoadingDirective).mount('#app')
 // <div v-loading="{ loading: isLoading, text: '拼命加载中...' }">自定义文案</div>`
 
 const codeNotice = `// notice 命令式 API：无需挂载组件，直接调用
-import { notice } from 'kylin-design-ui'
+import { notice } from '@kindoo/kdesign'
 
 notice.success('保存成功')
 notice.error('网络异常，请稍后重试', '详细描述文案')
@@ -127,8 +127,13 @@ npm publish`
 
     <section class="guide-page__section">
       <h2>安装</h2>
-      <p>使用你熟悉的包管理器安装组件库：</p>
+      <p>使用你熟悉的包管理器安装组件库（请务必使用完整包名 <code>@kindoo/kdesign</code>）：
+      </p>
       <pre class="guide-page__code"><code class="hljs" v-html="highlight(codeInstall, 'bash')"></code></pre>
+      <p class="guide-page__section__notice">
+        ⚠️ npm 上存在若干名称相似但与 KDesign 无关的包（如 kdesign、kdesign-ui），
+        请一律以本站提供的命令为准，认准 <code>@kindoo/kdesign</code>。
+      </p>
     </section>
 
     <section class="guide-page__section">
@@ -221,6 +226,21 @@ npm publish`
       margin: 0 0 12px;
       color: var(--k-color-text-secondary);
       font-size: 14px;
+    }
+
+    &__notice {
+      margin-top: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--k-color-text-secondary);
+      background: var(--k-color-warning-bg, #fff7e6);
+      border: 1px solid var(--k-color-warning-border, #ffd591);
+      border-radius: var(--k-border-radius, 6px);
+
+      :deep(code) {
+        background: rgba(0, 0, 0, 0.06);
+        font-size: 12px;
+      }
     }
 
     :deep(code) {

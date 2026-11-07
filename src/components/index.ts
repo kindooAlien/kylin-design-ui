@@ -5,20 +5,20 @@
  *
  *  1. 全量安装（简单直接，注册全部组件与指令）：
  *     ```ts
- *     import KylinUI from 'kylin-design-ui'
- *     import 'kylin-design-ui/dist/index.css'
+ *     import KylinUI from '@kindoo/kdesign'
+ *     import '@kindoo/kdesign/dist/index.css'
  *     app.use(KylinUI)
  *     ```
  *     模板中即可直接使用 `<KButton />` 等所有 K 前缀组件。
  *
  *  2. 按需引入（推荐，配合构建工具 tree-shaking 只打包用到的组件）：
  *     ```ts
- *     import { KButton, KDialog, KForm } from 'kylin-design-ui'
+ *     import { KButton, KDialog, KForm } from '@kindoo/kdesign'
  *     ```
  *     组件在页面内局部注册使用，也可 `app.use(KButton)` 单独全局注册。
  *
  * 样式说明：组件样式已随组件文件导入，全量安装时引入一次
- * `kylin-design-ui/dist/index.css` 即可；按需引入时样式由构建工具按导入链自动收集
+ * `@kindoo/kdesign/dist/index.css` 即可；按需引入时样式由构建工具按导入链自动收集
  * （工程基于 sass 源码分发，无需额外插件）。
  */
 // Design tokens（--k-* CSS 变量）必须最先进入样式产物：组件样式全部消费这些
